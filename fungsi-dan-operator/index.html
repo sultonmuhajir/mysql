@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>4 - Fungsi dan Operator - MySQL</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "4 - Fungsi dan Operator";
+        var mkdocs_page_input_path = "fungsi-dan-operator.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> MySQL
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">1 - Pengantar MySQL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../struktur-database/">2 - Struktur Database</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../query-dasar-sql/">3 - Query Dasar SQL</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">4 - Fungsi dan Operator</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#41-fungsi-agregat">4.1. Fungsi Agregat</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#42-fungsi-string">4.2. Fungsi String</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#43-fungsi-datetime">4.3. Fungsi DateTime</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#44-operator-logika">4.4. Operator Logika</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#45-operator-perbandingan">4.5. Operator Perbandingan</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">MySQL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">4 - Fungsi dan Operator</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="bab-4-fungsi-dan-operator">BAB 4: Fungsi dan Operator</h1>
+<h3 id="41-fungsi-agregat">4.1. Fungsi Agregat</h3>
+<p>Fungsi agregat digunakan untuk melakukan perhitungan terhadap sekumpulan data dan mengembalikan hasil tunggal. Fungsi ini sering digunakan dalam perintah <code>SELECT</code> dengan klausa <code>GROUP BY</code>. Berikut adalah beberapa fungsi agregat yang umum digunakan beserta contoh.</p>
+<ul>
+<li><strong>COUNT()</strong>: Menghitung jumlah baris yang memenuhi kriteria.</li>
+<li><strong>SUM()</strong>: Menghitung total nilai dari kolom numerik.</li>
+<li><strong>AVG()</strong>: Menghitung rata-rata nilai dari kolom numerik.</li>
+<li><strong>MIN()</strong>: Mengambil nilai minimum dari kolom.</li>
+<li><strong>MAX()</strong>: Mengambil nilai maksimum dari kolom.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Menghitung jumlah mahasiswa per jurusan</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">jurusan</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">jumlah_mahasiswa</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Mahasiswa</span><span class="w"></span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">jurusan</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Menghitung total gaji dan rata-rata gaji dari karyawan</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">gaji</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total_gaji</span><span class="p">,</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">gaji</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">rata_rata_gaji</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Karyawan</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Mendapatkan nilai maksimum dan minimum dari kolom harga pada tabel Produk</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">harga</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">harga_tertinggi</span><span class="p">,</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">harga</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">harga_terendah</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Produk</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p><br></p>
+<h3 id="42-fungsi-string">4.2. Fungsi String</h3>
+<p>Fungsi string digunakan untuk memanipulasi data karakter atau teks dalam SQL. Fungsi ini berguna untuk operasi seperti menggabungkan, memotong, mencari, atau mengganti string. Berikut adalah beberapa fungsi string yang umum digunakan beserta contoh.</p>
+<ul>
+<li><strong>CONCAT()</strong>: Menggabungkan dua atau lebih string.</li>
+<li><strong>SUBSTRING()</strong>: Mengambil sebagian string dari suatu teks.</li>
+<li><strong>LENGTH()</strong>: Mengembalikan panjang string dalam karakter.</li>
+<li><strong>UPPER()</strong>: Mengubah semua karakter string menjadi huruf besar.</li>
+<li><strong>LOWER()</strong>: Mengubah semua karakter string menjadi huruf kecil.</li>
+<li><strong>REPLACE()</strong>: Mengganti teks tertentu dalam string dengan teks lain.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Menggabungkan nama depan dan nama belakang menjadi nama lengkap</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="n">nama_depan</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">nama_belakang</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">nama_lengkap</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Pelanggan</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Mengambil 5 karakter pertama dari kolom deskripsi</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">SUBSTRING</span><span class="p">(</span><span class="n">deskripsi</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ringkasan</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Artikel</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Menghitung panjang string pada kolom nama</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">nama</span><span class="p">,</span><span class="w"> </span><span class="k">LENGTH</span><span class="p">(</span><span class="n">nama</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">panjang_nama</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Pegawai</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Mengubah nama produk menjadi huruf besar</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="n">nama_produk</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">nama_produk_uppercase</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Produk</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Mengganti kata &quot;lama&quot; dengan &quot;baru&quot; dalam deskripsi produk</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">REPLACE</span><span class="p">(</span><span class="n">deskripsi</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;lama&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;baru&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">deskripsi_baru</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Produk</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p><br></p>
+<h3 id="43-fungsi-datetime">4.3. Fungsi DateTime</h3>
+<p>Fungsi DateTime digunakan untuk memanipulasi dan mengolah data tanggal dan waktu. Fungsi ini sangat penting dalam aplikasi yang memerlukan penanganan waktu seperti pemesanan, pengiriman, dan lain-lain. Berikut adalah beberapa fungsi DateTime yang umum digunakan beserta contoh</p>
+<ul>
+<li><strong>NOW()</strong>: Mengembalikan tanggal dan waktu saat ini.</li>
+<li><strong>CURDATE()</strong>: Mengembalikan tanggal saat ini.</li>
+<li><strong>CURTIME()</strong>: Mengembalikan waktu saat ini.</li>
+<li><strong>DATE()</strong>: Mengambil bagian tanggal dari nilai DateTime.</li>
+<li><strong>TIME()</strong>: Mengambil bagian waktu dari nilai DateTime.</li>
+<li><strong>DATEDIFF()</strong>: Menghitung selisih hari antara dua tanggal.</li>
+<li><strong>DATE_ADD()</strong>: Menambah interval waktu ke tanggal tertentu.</li>
+<li><strong>DATE_SUB()</strong>: Mengurangi interval waktu dari tanggal tertentu.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Mengambil tanggal dan waktu saat ini</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">NOW</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tanggal_waktu_saat_ini</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Mengambil tanggal saat ini</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">CURDATE</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tanggal_hari_ini</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Mengambil selisih hari antara dua tanggal</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">DATEDIFF</span><span class="p">(</span><span class="s1">&#39;2024-12-31&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2024-01-01&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">selisih_hari</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Menambah 7 hari ke tanggal saat ini</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">DATE_ADD</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">(),</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="k">DAY</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tanggal_minggu_depan</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Mengurangi 1 bulan dari tanggal saat ini</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">DATE_SUB</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">(),</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">MONTH</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tanggal_bulan_lalu</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p><br></p>
+<h3 id="44-operator-logika">4.4. Operator Logika</h3>
+<p>Operator logika digunakan dalam klausa <code>WHERE</code> untuk menggabungkan beberapa kondisi. Berikut adalah operator logika yang umum digunakan beserta contoh.</p>
+<ul>
+<li><strong>AND</strong>: Mengembalikan true jika semua kondisi yang dipisahkan oleh <code>AND</code> adalah true.</li>
+<li><strong>OR</strong>: Mengembalikan true jika salah satu kondisi yang dipisahkan oleh <code>OR</code> adalah true.</li>
+<li><strong>NOT</strong>: Membalik nilai boolean dari ekspresi.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Memilih semua produk yang harganya antara 100 dan 500 dan stoknya lebih dari 0</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Produk</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">harga</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">500</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">stok</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Memilih semua pelanggan yang berasal dari kota Jakarta atau Surabaya</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Pelanggan</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">kota</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Jakarta&#39;</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">kota</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Surabaya&#39;</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Memilih semua karyawan yang tidak bekerja di departemen IT</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Karyawan</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">departemen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;IT&#39;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p><br></p>
+<h3 id="45-operator-perbandingan">4.5. Operator Perbandingan</h3>
+<p>Operator perbandingan digunakan untuk membandingkan dua nilai. Berikut adalah operator perbandingan yang umum digunakan beserta contoh.</p>
+<ul>
+<li><strong>=</strong>: Sama dengan</li>
+<li><strong>!= atau &lt;&gt;</strong>: Tidak sama dengan</li>
+<li><strong>&gt;</strong>: Lebih besar dari</li>
+<li><strong>&lt;</strong>: Lebih kecil dari</li>
+<li><strong>&gt;=</strong>: Lebih besar atau sama dengan</li>
+<li><strong>&lt;=</strong>: Lebih kecil atau sama dengan</li>
+<li><strong>BETWEEN</strong>: Di antara dua nilai</li>
+<li><strong>IN</strong>: Dalam kumpulan nilai</li>
+<li><strong>LIKE</strong>: Pencocokan pola string</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Memilih semua produk dengan harga lebih dari 100</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Produk</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">harga</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Memilih semua pelanggan yang tidak berasal dari kota Bandung</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Pelanggan</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">kota</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">&#39;Bandung&#39;</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Memilih semua buku yang diterbitkan antara tahun 2000 dan 2020</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Buku</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">tahun_terbit</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">2000</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">2020</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Memilih semua nama yang mengandung huruf &#39;a&#39;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Pegawai</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">nama</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%a%&#39;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../query-dasar-sql/" class="btn btn-neutral float-left" title="3 - Query Dasar SQL"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>&copy; All Rights Reserved by Sulton Muhajir</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../query-dasar-sql/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
