@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>8 - Keamanan dan Backup - MySQL</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "8 - Keamanan dan Backup";
+        var mkdocs_page_input_path = "keamanan-dan-backup.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> MySQL
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">1 - Pengantar MySQL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../struktur-database/">2 - Struktur Database</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../query-dasar-sql/">3 - Query Dasar SQL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../fungsi-dan-operator/">4 - Fungsi dan Operator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../join-dan-subquery/">5 - Join dan Subquery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../manajemen-data/">6 - Manajemen Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../optimasi-query/">7 - Optimasi Query</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">8 - Keamanan dan Backup</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#81-manajemen-user">8.1. Manajemen User</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#82-hak-akses">8.2. Hak Akses</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#83-enkripsi-data">8.3. Enkripsi Data</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#84-audit-dan-log">8.4. Audit dan Log</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#85-backup-data">8.5. Backup Data</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">MySQL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">8 - Keamanan dan Backup</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="bab-8-keamanan-dan-backup">BAB 8: Keamanan dan Backup</h1>
+<h3 id="81-manajemen-user">8.1. Manajemen User</h3>
+<p>Manajemen user di MySQL bertujuan untuk mengontrol siapa saja yang dapat mengakses database dan tindakan apa yang diizinkan. Ini melibatkan pembuatan user, pemberian hak akses, dan pengaturan password yang aman. Berikut adalah beberapa jenis manajemen user beserta contoh penggunaannya.</p>
+<ul>
+<li><strong>CREATE USER</strong>: Digunakan untuk membuat user baru.</li>
+<li><strong>ALTER USER</strong>: Mengubah detail user seperti password.</li>
+<li><strong>DROP USER</strong>: Menghapus user dari database.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Membuat user baru dengan hak akses hanya untuk localhost</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;new_user&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;secure_password&#39;</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Mengubah password user</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;new_user&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;new_secure_password&#39;</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Menghapus user</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;new_user&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p><br></p>
+<h3 id="82-hak-akses">8.2. Hak Akses</h3>
+<p>Hak akses menentukan tindakan apa saja yang dapat dilakukan oleh user di database. Hak akses dapat diberikan pada berbagai tingkat seperti seluruh server, database tertentu, atau bahkan tabel dan kolom. Berikut adalah beberapa jenis hak akses beserta contoh penggunaannya.</p>
+<ul>
+<li><strong>GRANT</strong>: Memberikan hak akses kepada user.</li>
+<li><strong>REVOKE</strong>: Mencabut hak akses dari user.</li>
+<li><strong>SHOW</strong>: Melihat hak akses yang dimiliki oleh user.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Memberikan hak akses SELECT dan INSERT pada database `mydb` kepada user `new_user`</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="p">,</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">mydb</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;new_user&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Mencabut hak akses INSERT dari user `new_user`</span>
+<span class="k">REVOKE</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">mydb</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s1">&#39;new_user&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Menampilkan hak akses dari user `new_user`</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="n">GRANTS</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="s1">&#39;new_user&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p><br></p>
+<h3 id="83-enkripsi-data">8.3. Enkripsi Data</h3>
+<p>Enkripsi data adalah proses pengamanan data dengan mengonversi informasi menjadi format yang tidak dapat dibaca tanpa kunci dekripsi. Ini melindungi data sensitif dari akses tidak sah. Berikut adalah beberapa tipe enkripsi pada MySQL beserta contoh penggunaannya.</p>
+<ul>
+<li><strong>Enkripsi Data di Level Aplikasi</strong>: Menggunakan fungsi MySQL seperti <code>AES_ENCRYPT()</code> dan <code>AES_DECRYPT()</code>.</li>
+<li><strong>Enkripsi Transportasi</strong>: Menggunakan SSL/TLS untuk enkripsi data yang ditransfer antara server dan klien.</li>
+<li><strong>Enkripsi Penyimpanan</strong>: Mengenkripsi data yang disimpan di disk menggunakan fitur InnoDB untuk tabel atau partisi tertentu.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Mengenkripsi data menggunakan AES</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Users</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">encrypted_password</span><span class="p">)</span><span class="w"></span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;alice&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">AES_ENCRYPT</span><span class="p">(</span><span class="s1">&#39;mysecretpassword&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mykey&#39;</span><span class="p">));</span><span class="w"></span>
+
+<span class="c1">-- Mendekripsi data menggunakan AES</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">AES_DECRYPT</span><span class="p">(</span><span class="n">encrypted_password</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mykey&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">password</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Users</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p><br></p>
+<h3 id="84-audit-dan-log">8.4. Audit dan Log</h3>
+<p>Audit dan log di MySQL digunakan untuk melacak aktivitas yang terjadi di dalam database. Ini penting untuk memantau akses tidak sah, mendeteksi anomali, dan memastikan kepatuhan terhadap kebijakan keamanan. Berikut adalah beberapa jenis log pada MySQL beserta contoh penggunaannya.</p>
+<ul>
+<li><strong>General Query Log</strong>: Menyimpan semua perintah SQL yang diterima oleh server.</li>
+<li><strong>Error Log</strong>: Menyimpan informasi tentang kesalahan yang terjadi.</li>
+<li><strong>Binary Log</strong>: Menyimpan semua perubahan yang dibuat pada data, digunakan untuk replikasi dan recovery.</li>
+<li><strong>Slow Query Log</strong>: Menyimpan informasi tentang query yang berjalan lebih lama dari waktu yang ditentukan.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Mengaktifkan general query log</span>
+<span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">general_log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;ON&#39;</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Mengatur lokasi file general query log</span>
+<span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">general_log_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/var/log/mysql/mysql-general.log&#39;</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Mengaktifkan slow query log</span>
+<span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">slow_query_log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;ON&#39;</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Mengatur threshold waktu untuk slow query log</span>
+<span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">long_query_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Dalam detik</span>
+</code></pre></div>
+<p>MySQL Enterprise Audit plugin menyediakan kemampuan audit lanjutan untuk database, termasuk logging aktivitas user dan query. Anda dapat menginstal dan mengonfigurasi plugin ini untuk meningkatkan keamanan database.</p>
+<p><br></p>
+<h3 id="85-backup-data">8.5. Backup Data</h3>
+<p>Backup adalah proses membuat salinan data untuk digunakan dalam pemulihan jika terjadi kehilangan atau kerusakan data. Backup adalah bagian penting dari rencana pemulihan bencana untuk database. Berikut adalah beberapa jenis backup pada MySQL beserta contoh penggunaannya.</p>
+<ul>
+<li><strong>Full Backup</strong>: Membuat salinan seluruh database.</li>
+<li><strong>Incremental Backup</strong>: Membuat salinan hanya dari perubahan sejak backup terakhir.</li>
+<li><strong>Differential Backup</strong>: Membuat salinan dari semua perubahan sejak full backup terakhir.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Backup database `mydb` ke file</span>
+mysqldump -u root -p mydb &gt; /backup/mydb_backup.sql
+
+<span class="c1"># Backup seluruh server MySQL</span>
+mysqldump -u root -p --all-databases &gt; /backup/all_databases_backup.sql
+</code></pre></div>
+<p>Metode backup:</p>
+<ul>
+<li><strong>Mysqldump</strong>: Utilitas command line untuk melakukan backup database ke file teks.</li>
+<li><strong>MySQL Workbench</strong>: Alat GUI yang menyediakan fitur backup dan restore.</li>
+<li><strong>Percona XtraBackup</strong>: Alat untuk melakukan backup fisik tanpa downtime.</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../optimasi-query/" class="btn btn-neutral float-left" title="7 - Optimasi Query"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>&copy; All Rights Reserved by Sulton Muhajir</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../optimasi-query/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>6 - Manajemen Data - MySQL</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "6 - Manajemen Data";
+        var mkdocs_page_input_path = "manajemen-data.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> MySQL
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">1 - Pengantar MySQL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../struktur-database/">2 - Struktur Database</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../query-dasar-sql/">3 - Query Dasar SQL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../fungsi-dan-operator/">4 - Fungsi dan Operator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../join-dan-subquery/">5 - Join dan Subquery</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">6 - Manajemen Data</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#61-transaksi-dan-commit">6.1. Transaksi dan Commit</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#62-rollback-dan-savepoint">6.2. Rollback dan Savepoint</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#63-view-dan-penggunaannya">6.3. View dan Penggunaannya</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#64-trigger-dan-penggunaannya">6.4. Trigger dan Penggunaannya</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#65-event-scheduler">6.5. Event Scheduler</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../optimasi-query/">7 - Optimasi Query</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../keamanan-dan-backup/">8 - Keamanan dan Backup</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">MySQL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">6 - Manajemen Data</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="bab-6-manajemen-data">BAB 6: Manajemen Data</h1>
+<h3 id="61-transaksi-dan-commit">6.1. Transaksi dan Commit</h3>
+<p>Transaksi adalah serangkaian operasi SQL yang dijalankan sebagai satu unit kerja. Semua perintah dalam transaksi harus berhasil, atau jika salah satu perintah gagal, seluruh transaksi dibatalkan (rollback). Transaksi digunakan untuk memastikan konsistensi data dalam database.</p>
+<ul>
+<li><strong>START TRANSACTION</strong>: Memulai transaksi baru.</li>
+<li><strong>COMMIT</strong>: Menyimpan semua perubahan yang dilakukan selama transaksi.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Memulai transaksi</span>
+<span class="k">START</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Contoh operasi transaksi</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Akun</span><span class="w"> </span><span class="p">(</span><span class="n">nama</span><span class="p">,</span><span class="w"> </span><span class="n">saldo</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;Alice&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">Akun</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">saldo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">saldo</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">nama</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Alice&#39;</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Menyimpan perubahan</span>
+<span class="k">COMMIT</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p><br></p>
+<h3 id="62-rollback-dan-savepoint">6.2. Rollback dan Savepoint</h3>
+<p><code>ROLLBACK</code> digunakan untuk membatalkan seluruh transaksi atau bagian dari transaksi sampai ke titik tertentu yang disebut <code>SAVEPOINT</code>. <code>ROLLBACK</code> mengembalikan database ke kondisi sebelum transaksi dimulai atau ke kondisi savepoint.</p>
+<p><code>SAVEPOINT</code> digunakan untuk menandai titik tertentu dalam transaksi. Anda bisa <code>ROLLBACK</code> ke <code>SAVEPOINT</code> tersebut tanpa membatalkan seluruh transaksi.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Memulai transaksi</span>
+<span class="k">START</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Menyisipkan data</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Akun</span><span class="w"> </span><span class="p">(</span><span class="n">nama</span><span class="p">,</span><span class="w"> </span><span class="n">saldo</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;Charlie&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">800</span><span class="p">);</span><span class="w"></span>
+
+<span class="c1">-- Menandai savepoint</span>
+<span class="n">SAVEPOINT</span><span class="w"> </span><span class="n">sebelum_pemotongan</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Mengurangi saldo, misalnya saldo tidak cukup</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">Akun</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">saldo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">saldo</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">nama</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Charlie&#39;</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Rollback ke savepoint sebelum_pemotongan</span>
+<span class="k">ROLLBACK</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">sebelum_pemotongan</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Mengurangi saldo dengan nilai yang benar</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">Akun</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">saldo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">saldo</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">nama</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Charlie&#39;</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Menyimpan perubahan</span>
+<span class="k">COMMIT</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p><br></p>
+<h3 id="63-view-dan-penggunaannya">6.3. View dan Penggunaannya</h3>
+<p><code>VIEW</code> adalah tabel virtual yang berisi hasil dari query SQL. <code>VIEW</code> tidak menyimpan data secara fisik, tetapi mengambil data dari tabel yang mendasarinya saat diakses. <code>VIEW</code> sangat berguna untuk menyederhanakan query kompleks dan meningkatkan keamanan data dengan memberikan akses terbatas.</p>
+<ul>
+<li><strong>CREATE VIEW</strong>: Membuat view baru.</li>
+<li><strong>ALTER VIEW</strong>: Memodifikasi view yang sudah ada.</li>
+<li><strong>DROP VIEW</strong>: Menghapus view.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Membuat view untuk menampilkan data mahasiswa dan nilai mereka</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">V_Mahasiswa_Nilai</span><span class="w"> </span><span class="k">AS</span><span class="w"></span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">Mahasiswa</span><span class="p">.</span><span class="n">nama</span><span class="p">,</span><span class="w"> </span><span class="n">Nilai</span><span class="p">.</span><span class="n">mata_kuliah</span><span class="p">,</span><span class="w"> </span><span class="n">Nilai</span><span class="p">.</span><span class="n">nilai</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Mahasiswa</span><span class="w"></span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">Nilai</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">Mahasiswa</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Nilai</span><span class="p">.</span><span class="n">id_mahasiswa</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Menggunakan view untuk mengambil data</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">V_Mahasiswa_Nilai</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Menghapus view</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">V_Mahasiswa_Nilai</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p><br></p>
+<h3 id="64-trigger-dan-penggunaannya">6.4. Trigger dan Penggunaannya</h3>
+<p><code>TRIGGER</code> adalah sekumpulan perintah SQL yang secara otomatis dijalankan (atau "dipicu") oleh MySQL sebagai respons terhadap peristiwa tertentu pada tabel. Peristiwa ini bisa berupa <code>INSERT</code>, <code>UPDATE</code>, atau <code>DELETE</code>.</p>
+<ul>
+<li><strong>CREATE TRIGGER</strong>: Membuat trigger baru.</li>
+<li><strong>BEFORE</strong> dan <strong>AFTER</strong>: Menentukan apakah trigger dieksekusi sebelum atau sesudah operasi.</li>
+<li><strong>DROP TRIGGER</strong>: Menghapus trigger.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Membuat trigger yang secara otomatis menambahkan log setelah data ditambahkan ke tabel Mahasiswa</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">after_insert_mahasiswa</span><span class="w"></span>
+<span class="k">AFTER</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">Mahasiswa</span><span class="w"></span>
+<span class="k">FOR</span><span class="w"> </span><span class="k">EACH</span><span class="w"> </span><span class="k">ROW</span><span class="w"></span>
+<span class="k">BEGIN</span><span class="w"></span>
+<span class="w">  </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Log_Aktivitas</span><span class="w"> </span><span class="p">(</span><span class="n">aksi</span><span class="p">,</span><span class="w"> </span><span class="n">waktu</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;Insert data mahasiswa baru&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">NOW</span><span class="p">());</span><span class="w"></span>
+<span class="k">END</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Menghapus trigger</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">after_insert_mahasiswa</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p><br></p>
+<h3 id="65-event-scheduler">6.5. Event Scheduler</h3>
+<p><code>EVENT SCHEDULER</code> adalah fitur di MySQL yang memungkinkan pengguna untuk menjadwalkan perintah SQL atau kumpulan perintah untuk dieksekusi pada waktu yang ditentukan atau secara berkala.</p>
+<ul>
+<li><strong>CREATE EVENT</strong>: Membuat event baru.</li>
+<li><strong>ALTER EVENT</strong>: Mengubah event yang sudah ada.</li>
+<li><strong>DROP EVENT</strong>: Menghapus event.</li>
+<li><strong>ENABLE/DISABLE EVENT</strong>: Mengaktifkan atau menonaktifkan event.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Mengaktifkan event scheduler</span>
+<span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">event_scheduler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Membuat event yang secara otomatis menghapus data log yang lebih lama dari 30 hari setiap tengah malam</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EVENT</span><span class="w"> </span><span class="n">hapus_log_lama</span><span class="w"></span>
+<span class="k">ON</span><span class="w"> </span><span class="n">SCHEDULE</span><span class="w"> </span><span class="k">EVERY</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">DAY</span><span class="w"></span>
+<span class="n">STARTS</span><span class="w"> </span><span class="s1">&#39;2024-09-01 00:00:00&#39;</span><span class="w"></span>
+<span class="k">DO</span><span class="w"></span>
+<span class="w">  </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Log_Aktivitas</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">waktu</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NOW</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="k">DAY</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Menghapus event</span>
+<span class="k">DROP</span><span class="w"> </span><span class="n">EVENT</span><span class="w"> </span><span class="n">hapus_log_lama</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../join-dan-subquery/" class="btn btn-neutral float-left" title="5 - Join dan Subquery"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../optimasi-query/" class="btn btn-neutral float-right" title="7 - Optimasi Query">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>&copy; All Rights Reserved by Sulton Muhajir</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../join-dan-subquery/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../optimasi-query/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

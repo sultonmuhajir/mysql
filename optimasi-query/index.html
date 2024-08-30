@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>7 - Optimasi Query - MySQL</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "7 - Optimasi Query";
+        var mkdocs_page_input_path = "optimasi-query.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> MySQL
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">1 - Pengantar MySQL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../struktur-database/">2 - Struktur Database</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../query-dasar-sql/">3 - Query Dasar SQL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../fungsi-dan-operator/">4 - Fungsi dan Operator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../join-dan-subquery/">5 - Join dan Subquery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../manajemen-data/">6 - Manajemen Data</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">7 - Optimasi Query</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#71-analisis-query">7.1. Analisis Query</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#72-indexing-optimal">7.2. Indexing Optimal</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#73-query-cache">7.3. Query Cache</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#74-partisi-tabel">7.4. Partisi Tabel</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#75-profiling-dan-debugging">7.5. Profiling dan Debugging</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../keamanan-dan-backup/">8 - Keamanan dan Backup</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">MySQL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">7 - Optimasi Query</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="bab-7-optimasi-query">BAB 7: Optimasi Query</h1>
+<h3 id="71-analisis-query">7.1. Analisis Query</h3>
+<p>Analisis query adalah proses untuk memahami dan meningkatkan performa query SQL yang dijalankan di MySQL. Dengan memahami cara MySQL memproses query, kita dapat menemukan cara untuk mempercepat eksekusi query.</p>
+<p>Perintah <code>EXPLAIN</code> digunakan untuk mendapatkan informasi tentang bagaimana MySQL menjalankan query. Ini menampilkan informasi tentang pemilihan tabel, penggunaan indeks, dan estimasi jumlah baris yang akan diproses. Berikut adalah contoh penggunaan <code>EXPLAIN</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">EXPLAIN</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">Mahasiswa</span><span class="p">.</span><span class="n">nama</span><span class="p">,</span><span class="w"> </span><span class="n">Nilai</span><span class="p">.</span><span class="n">mata_kuliah</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Mahasiswa</span><span class="w"></span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">Nilai</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">Mahasiswa</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Nilai</span><span class="p">.</span><span class="n">id_mahasiswa</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>Output dari <code>EXPLAIN</code> akan memberikan informasi seperti tipe join yang digunakan, indeks yang digunakan, dan perkiraan jumlah baris yang diproses. Informasi ini dapat membantu kita dalam menentukan cara untuk mengoptimalkan query.</p>
+<p><br></p>
+<h3 id="72-indexing-optimal">7.2. Indexing Optimal</h3>
+<p>Indeks (index) adalah struktur data yang digunakan untuk mempercepat pencarian data dalam tabel. Indeks mirip dengan indeks pada buku yang memungkinkan Anda menemukan informasi dengan cepat tanpa harus memeriksa setiap halaman. Berikut adalah beberapa jenis index yang umum digunakan beserta contoh penggunaannya.</p>
+<ul>
+<li><strong>Primary Key Index</strong>: Indeks yang secara otomatis dibuat ketika Anda menetapkan kolom sebagai kunci utama (PRIMARY KEY). Ini adalah indeks unik yang memastikan tidak ada duplikat nilai di kolom tersebut.</li>
+<li><strong>Unique Index</strong>: Indeks yang memastikan bahwa semua nilai dalam kolom atau grup kolom adalah unik.</li>
+<li><strong>Index Biasa (Non-Unique Index)</strong>: Digunakan untuk meningkatkan kecepatan pencarian data tanpa batasan unik.</li>
+<li><strong>Full-Text Index</strong>: Digunakan untuk pencarian teks penuh, biasanya di kolom tipe <code>TEXT</code> atau <code>VARCHAR</code>.</li>
+<li><strong>Composite Index</strong>: Indeks yang terdiri dari lebih dari satu kolom. Berguna untuk query yang menggunakan beberapa kolom dalam klausa <code>WHERE</code> atau <code>JOIN</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Membuat index pada kolom nama di tabel Mahasiswa</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_nama</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">Mahasiswa</span><span class="p">(</span><span class="n">nama</span><span class="p">);</span><span class="w"></span>
+
+<span class="c1">-- Membuat composite index pada kolom nama dan umur di tabel Mahasiswa</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_nama_umur</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">Mahasiswa</span><span class="p">(</span><span class="n">nama</span><span class="p">,</span><span class="w"> </span><span class="n">umur</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>Cara memilih index yang tepat:</p>
+<ul>
+<li>Gunakan indeks pada kolom yang sering digunakan dalam klausa <code>WHERE</code>, <code>JOIN</code>, atau klausa <code>ORDER BY</code>.</li>
+<li>Hindari penggunaan indeks pada kolom dengan banyak nilai duplikat, seperti kolom yang hanya memiliki dua nilai (misalnya kolom boolean).</li>
+<li>Hindari penggunaan indeks pada tabel kecil, karena overhead pemeliharaan indeks bisa lebih besar daripada keuntungan dari peningkatan performa query.</li>
+</ul>
+<p><br></p>
+<h3 id="73-query-cache">7.3. Query Cache</h3>
+<p>Query Cache adalah fitur MySQL yang memungkinkan penyimpanan hasil query dalam cache sehingga query yang sama dapat dijalankan lebih cepat tanpa harus diproses ulang oleh server database. Berikut adalah cara menggunakan query cache beserta contoh penggunaannya.</p>
+<ul>
+<li><strong>Mengaktifkan Query Cache</strong>: Query cache dapat diaktifkan atau dinonaktifkan menggunakan pengaturan di file konfigurasi MySQL (<code>my.cnf</code>).</li>
+<li><strong>Menggunakan SQL_CACHE</strong>: Anda bisa menggunakan kata kunci <code>SQL_CACHE</code> dalam query Anda untuk memberitahu MySQL untuk menyimpan hasil query ke cache.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Menggunakan query cache</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">SQL_CACHE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Mahasiswa</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">nama</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Alice&#39;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>Catatan:</p>
+<ul>
+<li>Cache query hanya berguna untuk query <code>SELECT</code> yang hasilnya jarang berubah. </li>
+<li>Query cache akan dihapus atau di-refresh setiap kali tabel yang relevan diubah.</li>
+</ul>
+<p><br></p>
+<h3 id="74-partisi-tabel">7.4. Partisi Tabel</h3>
+<p>Partisi tabel adalah teknik untuk membagi tabel besar menjadi beberapa bagian yang lebih kecil, yang disebut partisi, berdasarkan kriteria tertentu. Setiap partisi dapat diproses dan dikelola secara terpisah, yang dapat meningkatkan kinerja query dan mengurangi waktu pemrosesan. Berikut adalah jenis-jenis partisi beserta contoh penggunaannya.</p>
+<ul>
+<li><strong>Range Partitioning</strong>: Mempartisi tabel berdasarkan rentang nilai kolom.</li>
+<li><strong>List Partitioning</strong>: Mempartisi tabel berdasarkan daftar nilai tertentu.</li>
+<li><strong>Hash Partitioning</strong>: Mempartisi tabel berdasarkan hasil fungsi hash dari kolom.</li>
+<li><strong>Key Partitioning</strong>: Sejenis hash partitioning yang menggunakan fungsi hash internal MySQL.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Membuat tabel dengan partisi berdasarkan rentang nilai tahun</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Pesanan</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">nama_pemesan</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="n">tahun_pesanan</span><span class="w"> </span><span class="k">YEAR</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
+<span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">RANGE</span><span class="w"> </span><span class="p">(</span><span class="n">tahun_pesanan</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">PARTITION</span><span class="w"> </span><span class="n">p2010</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="k">LESS</span><span class="w"> </span><span class="k">THAN</span><span class="w"> </span><span class="p">(</span><span class="mi">2011</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="n">PARTITION</span><span class="w"> </span><span class="n">p2020</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="k">LESS</span><span class="w"> </span><span class="k">THAN</span><span class="w"> </span><span class="p">(</span><span class="mi">2021</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="n">PARTITION</span><span class="w"> </span><span class="n">p_lain</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="k">LESS</span><span class="w"> </span><span class="k">THAN</span><span class="w"> </span><span class="k">MAXVALUE</span><span class="w"></span>
+<span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>Manfaat partisi tabel:</p>
+<ul>
+<li><strong>Meningkatkan Kinerja Query</strong>: Query yang hanya membutuhkan sebagian kecil data dapat diproses lebih cepat karena hanya sebagian partisi yang perlu dibaca.</li>
+<li><strong>Manajemen Data Lebih Mudah</strong>: Partisi dapat dipindahkan, dihapus, atau diarsipkan secara terpisah.</li>
+<li><strong>Mengurangi I/O</strong>: Memori dan disk I/O dapat dikurangi dengan mengakses hanya partisi yang relevan.</li>
+</ul>
+<p><br></p>
+<h3 id="75-profiling-dan-debugging">7.5. Profiling dan Debugging</h3>
+<p>Profiling digunakan untuk menganalisis kinerja query dan operasi lainnya di MySQL. Dengan menggunakan perintah <code>SHOW PROFILE</code>, kita bisa mendapatkan rincian tentang berapa banyak waktu yang dihabiskan untuk setiap bagian dari query. Berikut adalah contoh penggunaan profilling.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Mengaktifkan profiling</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">profiling</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Menjalankan query</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Mahasiswa</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">nama</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Alice&#39;</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Melihat hasil profiling</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="n">PROFILES</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">-- Melihat rincian waktu untuk query tertentu</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="n">PROFILE</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>Debugging adalah proses untuk menemukan dan memperbaiki kesalahan dalam query SQL. Berikut adalah beberapa teknik yang dapat digunakan untuk debugging query beserta contoh penggunaannya.</p>
+<ul>
+<li>Gunakan perintah <code>EXPLAIN</code> untuk melihat bagaimana MySQL menjalankan query Anda.</li>
+<li>Gunakan perintah <code>SHOW WARNINGS</code> setelah query untuk melihat peringatan yang dihasilkan MySQL.</li>
+<li>Periksa log MySQL untuk pesan kesalahan atau informasi debugging lainnya.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Contoh query dengan kesalahan sintaks</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">FORM</span><span class="w"> </span><span class="n">Mahasiswa</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Kesalahan: seharusnya FROM, bukan FORM</span>
+
+<span class="c1">-- Melihat peringatan atau kesalahan</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="n">WARNINGS</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../manajemen-data/" class="btn btn-neutral float-left" title="6 - Manajemen Data"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../keamanan-dan-backup/" class="btn btn-neutral float-right" title="8 - Keamanan dan Backup">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>&copy; All Rights Reserved by Sulton Muhajir</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../manajemen-data/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../keamanan-dan-backup/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

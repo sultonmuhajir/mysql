@@ -47,7 +47,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#12-sejarah-dan-perkembangan">1.2. Sejarah dan Perkembangan</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#13-instalasi-dan-konfigurasi">1.3. Instalasi dan Konfigurasi</a>
+    <li class="toctree-l2"><a class="reference internal" href="#13-instalasi-mysql">1.3. Instalasi MySQL</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#14-arsitektur-mysql">1.4. Arsitektur MySQL</a>
     </li>
@@ -66,6 +66,22 @@
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="fungsi-dan-operator/">4 - Fungsi dan Operator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="join-dan-subquery/">5 - Join dan Subquery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="manajemen-data/">6 - Manajemen Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="optimasi-query/">7 - Optimasi Query</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="keamanan-dan-backup/">8 - Keamanan dan Backup</a>
                 </li>
               </ul>
       </div>
@@ -92,63 +108,86 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="bab-1-pengantar-mysql">BAB 1: Pengantar MySQL</h1>
-<h3 id="11-pengertian-mysql">1.1. Pengertian MySQL</h3>
-<p>MySQL adalah sistem manajemen basis data relasional (RDBMS) yang bersifat open-source. MySQL menggunakan Structured Query Language (SQL) sebagai bahasa untuk mengakses dan mengelola data. MySQL dikembangkan oleh MySQL AB, sebuah perusahaan Swedia, dan sekarang dimiliki oleh Oracle Corporation.</p>
-<p><br></p>
-<h3 id="12-sejarah-dan-perkembangan">1.2. Sejarah dan Perkembangan</h3>
-<p>MySQL pertama kali dikembangkan pada tahun 1994 oleh Michael Widenius (Monty), David Axmark, dan Allan Larsson di Swedia. Berikut adalah beberapa tonggak penting dalam sejarah perkembangan MySQL:</p>
+<h2 id="11-pengertian-mysql">1.1. Pengertian MySQL</h2>
+<p><strong>Apa itu MySQL?</strong></p>
+<p>MySQL adalah sebuah sistem manajemen basis data relasional (RDBMS) yang menggunakan SQL (Structured Query Language) sebagai bahasa pengelolaan data. MySQL bersifat open-source, sehingga dapat digunakan secara bebas dan dimodifikasi sesuai kebutuhan pengguna. MySQL biasanya digunakan untuk mengelola data dalam aplikasi web, seperti situs e-commerce, sistem manajemen konten (CMS), dan aplikasi berbasis data lainnya.</p>
+<p><strong>Mengapa Memilih MySQL?</strong></p>
 <ul>
-<li><strong>1995:</strong> MySQL versi pertama dirilis.</li>
-<li><strong>2001:</strong> MySQL mulai mendukung transaksi dengan adanya tabel tipe InnoDB.</li>
-<li><strong>2008:</strong> Sun Microsystems mengakuisisi MySQL AB.</li>
-<li><strong>2010:</strong> Oracle Corporation mengakuisisi Sun Microsystems, dan dengan demikian MySQL juga menjadi bagian dari Oracle.</li>
+<li><strong>Kinerja Tinggi</strong>: MySQL dikenal karena kecepatan dan kemampuannya untuk menangani volume data yang besar dengan efisien.</li>
+<li><strong>Keandalan</strong>: MySQL memiliki reputasi yang baik dalam hal stabilitas dan keandalan.</li>
+<li><strong>Skalabilitas</strong>: MySQL dapat dengan mudah diskalakan dari aplikasi kecil hingga sistem yang sangat besar.</li>
+<li><strong>Komunitas Besar</strong>: MySQL memiliki komunitas pengguna dan pengembang yang besar, sehingga dukungan dan sumber daya tersedia dengan melimpah.</li>
 </ul>
-<p>MySQL terus berkembang dan diperbarui, dengan fitur-fitur baru yang diimplementasikan untuk meningkatkan kinerja, skalabilitas, dan keamanan.</p>
 <p><br></p>
-<h3 id="13-instalasi-dan-konfigurasi">1.3. Instalasi dan Konfigurasi</h3>
-<p>Untuk memulai menggunakan MySQL, Anda perlu menginstal perangkat lunak MySQL di sistem Anda. Berikut adalah langkah-langkah dasar untuk instalasi dan konfigurasi MySQL:</p>
-<p><strong>Langkah Instalasi:</strong></p>
+<h2 id="12-sejarah-dan-perkembangan">1.2. Sejarah dan Perkembangan</h2>
+<p><strong>Sejarah Singkat MySQL</strong></p>
+<p>MySQL pertama kali dikembangkan oleh MySQL AB, sebuah perusahaan Swedia, pada tahun 1995 oleh Michael "Monty" Widenius, David Axmark, dan Allan Larsson. MySQL awalnya dikembangkan sebagai alternatif cepat dan andal untuk sistem basis data komersial.</p>
+<p>Pada tahun 2008, MySQL AB diakuisisi oleh Sun Microsystems, yang kemudian diakuisisi oleh Oracle Corporation pada tahun 2010. Sejak saat itu, Oracle telah mengelola dan terus mengembangkan MySQL, merilis versi terbaru yang menambahkan fitur-fitur baru dan perbaikan.</p>
+<p><strong>Versi-Versi Utama MySQL</strong></p>
+<ul>
+<li><strong>MySQL 3.x</strong>: Versi awal yang menyediakan fitur dasar RDBMS.</li>
+<li><strong>MySQL 4.x</strong>: Memperkenalkan fitur seperti query caching dan penggunaan SSL untuk keamanan.</li>
+<li><strong>MySQL 5.x</strong>: Menambahkan dukungan untuk stored procedures, triggers, views, dan informasi skema.</li>
+<li><strong>MySQL 8.x</strong>: Merupakan versi terbaru yang menawarkan peningkatan kinerja, keamanan, dan fitur-fitur baru seperti window functions dan CTE (Common Table Expressions).</li>
+</ul>
+<p><br></p>
+<h2 id="13-instalasi-mysql">1.3. Instalasi MySQL</h2>
+<p>MySQL dapat diinstal pada berbagai sistem operasi, termasuk Windows, macOS, dan berbagai distribusi Linux seperti Ubuntu dan CentOS.</p>
+<p><strong>Instalasi di Windows:</strong></p>
 <ol>
-<li>
-<p><strong>Download MySQL:</strong></p>
-<ul>
-<li>Kunjungi situs resmi MySQL di <a href="https://dev.mysql.com/downloads/">https://dev.mysql.com/downloads/</a>.</li>
-<li>Pilih versi MySQL sesuai dengan sistem operasi Anda (Windows, MacOS, Linux).</li>
-</ul>
-</li>
-<li>
-<p><strong>Instalasi MySQL:</strong></p>
-<ul>
-<li>Jalankan installer yang telah diunduh.</li>
-<li>Ikuti instruksi di layar untuk menyelesaikan instalasi. Anda akan diminta untuk mengatur password untuk pengguna 'root' (pengguna default dengan hak administratif).</li>
-</ul>
-</li>
-<li>
-<p><strong>Konfigurasi Awal:</strong></p>
-<ul>
-<li>Setelah instalasi, MySQL akan menawarkan opsi untuk melakukan konfigurasi awal, seperti mengatur root password, mengaktifkan atau menonaktifkan remote access, dan pengaturan lainnya.</li>
-<li>Anda dapat menggunakan <code>mysql_secure_installation</code> untuk mengamankan instalasi MySQL Anda.</li>
-</ul>
-</li>
+<li><strong>Download Installer</strong>: Unduh MySQL Installer dari situs resmi MySQL (https://dev.mysql.com/downloads/installer/).</li>
+<li><strong>Jalankan Installer</strong>: Klik dua kali pada file installer dan ikuti petunjuk untuk memilih versi MySQL yang ingin diinstal.</li>
+<li><strong>Konfigurasi Awal</strong>: Atur root password, pilih tipe server (Development Machine, Server Machine, Dedicated MySQL Server), dan selesai.</li>
 </ol>
+<p><strong>Instalasi di macOS:</strong></p>
+<div class="highlight"><pre><span></span><code>brew update
+brew install mysql
+brew services start mysql
+mysql_secure_installation
+</code></pre></div>
+<p><strong>Instalasi di Linux (Ubuntu):</strong></p>
+<div class="highlight"><pre><span></span><code>sudo apt update
+sudo apt install mysql-server
+sudo mysql_secure_installation
+</code></pre></div>
 <p><br></p>
-<h3 id="14-arsitektur-mysql">1.4. Arsitektur MySQL</h3>
-<p>MySQL memiliki arsitektur client-server yang terdiri dari beberapa komponen utama:</p>
+<h2 id="14-arsitektur-mysql">1.4. Arsitektur MySQL</h2>
+<p><strong>Komponen Utama MySQL</strong></p>
 <ul>
-<li><strong>Client:</strong> Aplikasi atau program yang mengirimkan permintaan (query) ke server MySQL.</li>
-<li><strong>Server:</strong> Server MySQL yang bertanggung jawab untuk menangani semua operasi database seperti eksekusi query, manipulasi data, dan pengelolaan transaksi.</li>
-<li><strong>Storage Engine:</strong> MySQL mendukung beberapa storage engine seperti InnoDB, MyISAM, MEMORY, CSV, dll., yang bertanggung jawab untuk penyimpanan data fisik dan pengelolaan indeks.</li>
+<li><strong>MySQL Server</strong>: Inti dari sistem MySQL yang bertanggung jawab untuk menangani semua operasi database.</li>
+<li><strong>Storage Engine</strong>: Komponen yang mengelola bagaimana data disimpan, diindeks, dan diambil. Contoh storage engine yang populer adalah InnoDB dan MyISAM.</li>
+<li><strong>Query Processor</strong>: Komponen yang memproses permintaan SQL dari pengguna dan menentukan cara terbaik untuk mengeksekusi query.</li>
+<li><strong>Connection Manager</strong>: Menangani koneksi dari klien ke server MySQL, memastikan bahwa setiap koneksi dikelola dengan baik.</li>
+<li><strong>SQL Parser</strong>: Memeriksa sintaks dari pernyataan SQL untuk memastikan bahwa query valid sebelum dieksekusi.</li>
 </ul>
-<p>Setiap komponen ini bekerja sama untuk menyediakan layanan basis data yang andal dan efisien.</p>
+<p><strong>Cara Kerja MySQL</strong></p>
+<ul>
+<li><strong>Koneksi Klien ke Server</strong>: Klien mengirimkan pernyataan SQL melalui koneksi yang dikelola oleh Connection Manager.</li>
+<li><strong>Pemeriksaan Sintaks</strong>: SQL Parser memeriksa pernyataan untuk memastikan tidak ada kesalahan sintaks.</li>
+<li><strong>Optimasi Query</strong>: Query Processor mengoptimalkan cara query akan dieksekusi untuk meningkatkan efisiensi.</li>
+<li><strong>Eksekusi Query</strong>: Storage Engine menyimpan, memperbarui, atau mengambil data sesuai dengan perintah yang diberikan.</li>
+<li><strong>Mengembalikan Hasil ke Klien</strong>: MySQL Server mengirimkan hasil eksekusi query kembali ke klien.</li>
+</ul>
 <p><br></p>
-<h3 id="15-tools-dan-interface">1.5. Tools dan Interface</h3>
-<p>MySQL menyediakan berbagai tools dan antarmuka untuk berinteraksi dengan database. Berikut adalah beberapa tools dan interface yang sering digunakan:</p>
+<h2 id="15-tools-dan-interface">1.5. Tools dan Interface</h2>
+<p><strong>MySQL Command Line Interface (CLI)</strong></p>
+<p>MySQL CLI adalah alat baris perintah yang digunakan untuk berinteraksi dengan MySQL Server. Ini adalah alat utama untuk administrasi database, memungkinkan Anda untuk menjalankan perintah SQL, mengelola database, dan mengelola pengguna. Berikut adalah contoh penggunaan MySQL CLI.</p>
+<div class="highlight"><pre><span></span><code>mysql -u root -p
+
+SHOW DATABASES<span class="p">;</span>
+CREATE DATABASE test_db<span class="p">;</span>
+USE test_db<span class="p">;</span>
+SHOW TABLES<span class="p">;</span>
+</code></pre></div>
+<p><strong>MySQL Workbench</strong></p>
+<p>MySQL Workbench adalah alat GUI (Graphical User Interface) yang menyediakan fitur visual untuk merancang, mengelola, dan memodelkan database. Ini adalah alat yang sangat berguna untuk administrasi database, terutama bagi pengguna yang lebih nyaman dengan antarmuka grafis daripada baris perintah.</p>
+<p><strong>PhpMyAdmin</strong></p>
+<p>PhpMyAdmin adalah alat berbasis web untuk mengelola MySQL database. Ini sering digunakan oleh pengembang web karena terintegrasi dengan baik dengan server web Apache dan mudah diakses dari browser.</p>
+<p><strong>Perbedaan dan Penggunaan CLI vs GUI Tools</strong></p>
 <ul>
-<li><strong>MySQL Command Line Client:</strong> Alat baris perintah bawaan yang memungkinkan Anda untuk menjalankan perintah SQL secara langsung di terminal.</li>
-<li><strong>MySQL Workbench:</strong> Antarmuka grafis (GUI) yang user-friendly untuk mengelola database MySQL, membuat query, mendesain skema, dan banyak lagi.</li>
-<li><strong>phpMyAdmin:</strong> Aplikasi web open-source yang ditulis dalam PHP yang digunakan untuk menangani administrasi MySQL melalui web browser.</li>
+<li><strong>CLI</strong>: Lebih cepat dan lebih ringan, ideal untuk tugas-tugas administrasi rutin dan skrip otomatisasi.</li>
+<li><strong>GUI Tools</strong>: Lebih ramah pengguna dan ideal untuk pemodelan database, perancangan query kompleks, dan visualisasi data.</li>
 </ul>
-<p>Setelah memahami dasar-dasar MySQL, Anda dapat memilih tools yang paling sesuai dengan kebutuhan Anda untuk berinteraksi dengan database MySQL.</p>
               
             </div>
           </div><footer>
@@ -198,5 +237,5 @@
 
 <!--
 MkDocs version : 1.6.0
-Build Date UTC : 2024-08-30 05:44:46.750433+00:00
+Build Date UTC : 2024-08-30 14:31:21.612672+00:00
 -->

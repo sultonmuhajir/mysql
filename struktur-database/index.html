@@ -68,6 +68,22 @@
                 <li class="toctree-l1"><a class="reference internal" href="../fungsi-dan-operator/">4 - Fungsi dan Operator</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../join-dan-subquery/">5 - Join dan Subquery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../manajemen-data/">6 - Manajemen Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../optimasi-query/">7 - Optimasi Query</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../keamanan-dan-backup/">8 - Keamanan dan Backup</a>
+                </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -105,10 +121,10 @@
 <h3 id="22-tipe-data">2.2. Tipe Data</h3>
 <p>Tipe data menentukan jenis data yang dapat disimpan dalam sebuah kolom. Berikut adalah beberapa tipe data yang umum digunakan beserta contoh.</p>
 <ul>
-<li><strong>Numerik:</strong> INT, FLOAT, DOUBLE, DECIMAL</li>
-<li><strong>String:</strong> CHAR, VARCHAR, TEXT, BLOB</li>
-<li><strong>Date/Time:</strong> DATE, DATETIME, TIMESTAMP, TIME, YEAR</li>
-<li><strong>Boolean:</strong> BOOL, BOOLEAN</li>
+<li><strong>Numerik</strong>: <code>INT</code>, <code>FLOAT</code>, <code>DOUBLE</code>, <code>DECIMAL</code></li>
+<li><strong>String</strong>: <code>CHAR</code>, <code>VARCHAR</code>, <code>TEXT</code>, <code>BLOB</code></li>
+<li><strong>Date/Time</strong>: <code>DATE</code>, <code>DATETIME</code>, <code>TIMESTAMP</code>, <code>TIME</code>, <code>YEAR</code></li>
+<li><strong>Boolean</strong>: <code>BOOL</code>, <code>BOOLEAN</code></li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Produk</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"></span>
@@ -121,9 +137,9 @@
 <h3 id="23-relasi-antar-tabel">2.3. Relasi Antar Tabel</h3>
 <p>Relasi antar tabel menggambarkan bagaimana tabel-tabel dalam database berhubungan satu sama lain. Berikut adalah beberapa jenis relasi yang umum digunakan beserta contoh.</p>
 <ul>
-<li><strong>One-to-One:</strong> Satu baris di tabel A berhubungan dengan satu baris di tabel B.</li>
-<li><strong>One-to-Many:</strong> Satu baris di tabel A berhubungan dengan banyak baris di tabel B.</li>
-<li><strong>Many-to-Many:</strong> Banyak baris di tabel A berhubungan dengan banyak baris di tabel B.</li>
+<li><strong>One-to-One</strong>: Satu baris di tabel A berhubungan dengan satu baris di tabel B.</li>
+<li><strong>One-to-Many</strong>: Satu baris di tabel A berhubungan dengan banyak baris di tabel B.</li>
+<li><strong>Many-to-Many</strong>: Banyak baris di tabel A berhubungan dengan banyak baris di tabel B.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Contoh membuat relasi antar tabel (One-to-Many)</span>
 <span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Dosen</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
@@ -142,10 +158,10 @@
 <h3 id="24-index-dan-kunci">2.4. Index dan Kunci</h3>
 <p>Indeks digunakan untuk meningkatkan kecepatan pencarian data dalam tabel. Kunci (key) adalah kolom atau kombinasi kolom yang digunakan untuk mengidentifikasi baris secara unik. Berikut adalah beberapa jenis kunci yang umum digunakan beserta contoh.</p>
 <ul>
-<li><strong>Primary Key:</strong> Unik dan tidak boleh null.</li>
-<li><strong>Foreign Key:</strong> Menunjukkan hubungan antar tabel.</li>
-<li><strong>Unique Key:</strong> Unik tapi boleh null.</li>
-<li><strong>Index Key:</strong> Meningkatkan performa pencarian.</li>
+<li><strong>Primary Key</strong>: Unik dan tidak boleh null.</li>
+<li><strong>Foreign Key</strong>: Menunjukkan hubungan antar tabel.</li>
+<li><strong>Unique Key</strong>: Unik tapi boleh null.</li>
+<li><strong>Index Key</strong>: Meningkatkan performa pencarian.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Pegawai</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span><span class="w"></span>
@@ -159,9 +175,9 @@
 <h3 id="25-normalisasi-data">2.5. Normalisasi Data</h3>
 <p>Normalisasi adalah proses pengorganisasian data dalam tabel untuk mengurangi redundansi dan meningkatkan integritas data. Berikut adalah beberapa bentuk normalisasi yang umum digunakan beserta contoh.</p>
 <ul>
-<li><strong>1NF (First Normal Form):</strong> Menghilangkan grup berulang dalam kolom.</li>
-<li><strong>2NF (Second Normal Form):</strong> Menghilangkan ketergantungan parsial.</li>
-<li><strong>3NF (Third Normal Form):</strong> Menghilangkan ketergantungan transitif.</li>
+<li><strong>1NF (First Normal Form)</strong>: Menghilangkan grup berulang dalam kolom.</li>
+<li><strong>2NF (Second Normal Form)</strong>: Menghilangkan ketergantungan parsial.</li>
+<li><strong>3NF (Third Normal Form)</strong>: Menghilangkan ketergantungan transitif.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="c1">-- 1NF</span>
 <span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Pembelian</span><span class="w"> </span><span class="p">(</span><span class="w"></span>

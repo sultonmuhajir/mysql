@@ -68,6 +68,22 @@
                 <li class="toctree-l1"><a class="reference internal" href="../fungsi-dan-operator/">4 - Fungsi dan Operator</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../join-dan-subquery/">5 - Join dan Subquery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../manajemen-data/">6 - Manajemen Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../optimasi-query/">7 - Optimasi Query</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../keamanan-dan-backup/">8 - Keamanan dan Backup</a>
+                </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -95,10 +111,10 @@
 <h3 id="31-perintah-ddl">3.1. Perintah DDL</h3>
 <p>Perintah Data Definition Language (DDL) digunakan untuk mendefinisikan struktur database. Berikut adalah beberapa perintah DDL yang umum digunakan beserta contoh.</p>
 <ul>
-<li><strong>CREATE:</strong> Membuat database atau tabel baru.</li>
-<li><strong>ALTER:</strong> Memodifikasi struktur tabel yang ada.</li>
-<li><strong>DROP:</strong> Menghapus database atau tabel.</li>
-<li><strong>TRUNCATE:</strong> Menghapus semua baris dalam tabel tanpa menghapus struktur tabel.</li>
+<li><strong>CREATE</strong>: Membuat database atau tabel baru.</li>
+<li><strong>ALTER</strong>: Memodifikasi struktur tabel yang ada.</li>
+<li><strong>DROP</strong>: Menghapus database atau tabel.</li>
+<li><strong>TRUNCATE</strong>: Menghapus semua baris dalam tabel tanpa menghapus struktur tabel.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Buku</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"></span>
@@ -117,10 +133,10 @@
 <h3 id="32-perintah-dml">3.2. Perintah DML</h3>
 <p>Perintah Data Manipulation Language (DML) digunakan untuk memanipulasi data dalam tabel. Berikut adalah beberapa perintah DML yang umum digunakan beserta contoh.</p>
 <ul>
-<li><strong>INSERT:</strong> Menambahkan data baru ke tabel.</li>
-<li><strong>SELECT:</strong> Mengambil data dari satu atau lebih tabel.</li>
-<li><strong>UPDATE:</strong> Memperbarui data yang ada dalam tabel.</li>
-<li><strong>DELETE:</strong> Menghapus data dari tabel.</li>
+<li><strong>INSERT</strong>: Menambahkan data baru ke tabel.</li>
+<li><strong>SELECT</strong>: Mengambil data dari satu atau lebih tabel.</li>
+<li><strong>UPDATE</strong>: Memperbarui data yang ada dalam tabel.</li>
+<li><strong>DELETE</strong>: Menghapus data dari tabel.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Buku</span><span class="w"> </span><span class="p">(</span><span class="n">judul</span><span class="p">,</span><span class="w"> </span><span class="n">pengarang</span><span class="p">,</span><span class="w"> </span><span class="n">tahun_terbit</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;Pemrograman Python&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2020</span><span class="p">);</span><span class="w"></span>
 
