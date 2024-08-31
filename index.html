@@ -43,13 +43,13 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">1 - Pengantar MySQL</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#11-pengertian-mysql">1.1. Pengertian MySQL</a>
+    <li class="toctree-l2"><a class="reference internal" href="#11-pengenalan-mysql">1.1. Pengenalan MySQL</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#12-sejarah-dan-perkembangan">1.2. Sejarah dan Perkembangan</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#13-instalasi-mysql">1.3. Instalasi MySQL</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#14-arsitektur-mysql">1.4. Arsitektur MySQL</a>
+    <li class="toctree-l2"><a class="reference internal" href="#14-konfigurasi-mysql">1.4. Konfigurasi MySQL</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#15-tools-dan-interface">1.5. Tools dan Interface</a>
     </li>
@@ -108,7 +108,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="bab-1-pengantar-mysql">BAB 1: Pengantar MySQL</h1>
-<h2 id="11-pengertian-mysql">1.1. Pengertian MySQL</h2>
+<h2 id="11-pengenalan-mysql">1.1. Pengenalan MySQL</h2>
 <p><strong>Apa itu MySQL?</strong></p>
 <p>MySQL adalah sebuah sistem manajemen basis data relasional (RDBMS) yang menggunakan SQL (Structured Query Language) sebagai bahasa pengelolaan data. MySQL bersifat open-source, sehingga dapat digunakan secara bebas dan dimodifikasi sesuai kebutuhan pengguna. MySQL biasanya digunakan untuk mengelola data dalam aplikasi web, seperti situs e-commerce, sistem manajemen konten (CMS), dan aplikasi berbasis data lainnya.</p>
 <p><strong>Mengapa Memilih MySQL?</strong></p>
@@ -132,61 +132,91 @@
 </ul>
 <p><br></p>
 <h2 id="13-instalasi-mysql">1.3. Instalasi MySQL</h2>
-<p>MySQL dapat diinstal pada berbagai sistem operasi, termasuk Windows, macOS, dan berbagai distribusi Linux seperti Ubuntu dan CentOS.</p>
-<p><strong>Instalasi di Windows:</strong></p>
+<p>MySQL dapat diinstal di berbagai sistem operasi seperti Windows, macOS, dan Linux. Berikut adalah langkah-langkah instalasi untuk setiap sistem operasi:</p>
+<p><strong>Instalasi di Windows</strong></p>
 <ol>
-<li><strong>Download Installer</strong>: Unduh MySQL Installer dari situs resmi MySQL (https://dev.mysql.com/downloads/installer/).</li>
-<li><strong>Jalankan Installer</strong>: Klik dua kali pada file installer dan ikuti petunjuk untuk memilih versi MySQL yang ingin diinstal.</li>
-<li><strong>Konfigurasi Awal</strong>: Atur root password, pilih tipe server (Development Machine, Server Machine, Dedicated MySQL Server), dan selesai.</li>
+<li><strong>Unduh Installer</strong>: Kunjungi <a href="https://dev.mysql.com/downloads/installer/">MySQL Downloads</a> dan unduh MySQL Installer untuk Windows.</li>
+<li><strong>Jalankan Installer</strong>: Klik dua kali pada file installer yang diunduh dan ikuti petunjuk instalasi.</li>
+<li><strong>Pilih Jenis Setup</strong>: Pilih jenis instalasi (Developer Default, Server Only, Full, Custom, dll.).</li>
+<li><strong>Konfigurasi Awal</strong>: Tentukan root password dan pilih tipe server yang sesuai (Development Machine, Server Machine, Dedicated MySQL Server).</li>
+<li><strong>Selesaikan Instalasi</strong>: Klik "Execute" untuk memulai instalasi dan tunggu hingga selesai.</li>
 </ol>
-<p><strong>Instalasi di macOS:</strong></p>
-<div class="highlight"><pre><span></span><code>brew update
+<p><strong>Instalasi di macOS</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install Homebrew (jika belum terpasang)</span>
+/bin/bash -c <span class="s2">&quot;</span><span class="k">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="k">)</span><span class="s2">&quot;</span>
+
+<span class="c1"># Install MySQL</span>
+brew update
 brew install mysql
+
+<span class="c1"># Memulai MySQL Server</span>
 brew services start mysql
+
+<span class="c1"># Mengatur password root</span>
 mysql_secure_installation
 </code></pre></div>
-<p><strong>Instalasi di Linux (Ubuntu):</strong></p>
-<div class="highlight"><pre><span></span><code>sudo apt update
+<p><strong>Instalasi di Linux (Ubuntu)</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Update sistem paket</span>
+sudo apt update
+
+<span class="c1"># Install MySQL Server</span>
 sudo apt install mysql-server
+
+<span class="c1"># Mengatur password root</span>
 sudo mysql_secure_installation
 </code></pre></div>
 <p><br></p>
-<h2 id="14-arsitektur-mysql">1.4. Arsitektur MySQL</h2>
-<p><strong>Komponen Utama MySQL</strong></p>
-<ul>
-<li><strong>MySQL Server</strong>: Inti dari sistem MySQL yang bertanggung jawab untuk menangani semua operasi database.</li>
-<li><strong>Storage Engine</strong>: Komponen yang mengelola bagaimana data disimpan, diindeks, dan diambil. Contoh storage engine yang populer adalah InnoDB dan MyISAM.</li>
-<li><strong>Query Processor</strong>: Komponen yang memproses permintaan SQL dari pengguna dan menentukan cara terbaik untuk mengeksekusi query.</li>
-<li><strong>Connection Manager</strong>: Menangani koneksi dari klien ke server MySQL, memastikan bahwa setiap koneksi dikelola dengan baik.</li>
-<li><strong>SQL Parser</strong>: Memeriksa sintaks dari pernyataan SQL untuk memastikan bahwa query valid sebelum dieksekusi.</li>
-</ul>
-<p><strong>Cara Kerja MySQL</strong></p>
-<ul>
-<li><strong>Koneksi Klien ke Server</strong>: Klien mengirimkan pernyataan SQL melalui koneksi yang dikelola oleh Connection Manager.</li>
-<li><strong>Pemeriksaan Sintaks</strong>: SQL Parser memeriksa pernyataan untuk memastikan tidak ada kesalahan sintaks.</li>
-<li><strong>Optimasi Query</strong>: Query Processor mengoptimalkan cara query akan dieksekusi untuk meningkatkan efisiensi.</li>
-<li><strong>Eksekusi Query</strong>: Storage Engine menyimpan, memperbarui, atau mengambil data sesuai dengan perintah yang diberikan.</li>
-<li><strong>Mengembalikan Hasil ke Klien</strong>: MySQL Server mengirimkan hasil eksekusi query kembali ke klien.</li>
-</ul>
+<h2 id="14-konfigurasi-mysql">1.4. Konfigurasi MySQL</h2>
+<p>Setelah instalasi, MySQL perlu dikonfigurasi untuk memastikan keamanan dan kinerja optimal. Berikut adalah beberapa langkah konfigurasi dasar yang penting dilakukan:</p>
+<ol>
+<li>
+<p><strong>Mengatur Password Root</strong>: Password root adalah kunci utama untuk mengakses MySQL. Mengubah password root dari nilai default atau password awal yang telah ditetapkan sangat penting untuk mengamankan akses ke database.</p>
+</li>
+<li>
+<p><strong>Mengamankan Instalasi MySQL</strong>: MySQL menyediakan skrip <code>mysql_secure_installation</code> yang dapat digunakan untuk meningkatkan keamanan dengan menghapus pengguna anonim, menonaktifkan login root dari jarak jauh, dan menghapus database tes yang tidak diperlukan.</p>
+</li>
+<li>
+<p><strong>Mengatur Bind Address</strong>: <code>bind-address</code> digunakan untuk menentukan alamat IP yang diizinkan untuk mengakses server MySQL. Dengan mengatur <code>bind-address</code> ke <code>127.0.0.1</code>, kita membatasi akses hanya dari localhost, sehingga memperkuat keamanan.</p>
+</li>
+<li>
+<p><strong>Memulai dan Menghentikan MySQL</strong>: Kemampuan untuk memulai, menghentikan, atau me-restart layanan MySQL sangat penting untuk manajemen server. Ini memungkinkan administrator untuk melakukan pembaruan atau pemecahan masalah.</p>
+</li>
+<li>
+<p><strong>Memeriksa Status MySQL</strong>: Memeriksa status MySQL memastikan bahwa layanan berjalan dengan benar. Jika ada masalah, administrator dapat dengan cepat mengidentifikasi dan mengambil tindakan yang diperlukan.</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Mengatur Password Root</span>
+ALTER USER <span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span> IDENTIFIED BY <span class="s1">&#39;new_password&#39;</span><span class="p">;</span>
+
+<span class="c1"># 2. Mengamankan Instalasi MySQL</span>
+sudo mysql_secure_installation
+
+<span class="c1"># 3. Mengatur bind-address</span>
+<span class="o">[</span>mysqld<span class="o">]</span>
+bind-address <span class="o">=</span> <span class="m">127</span>.0.0.1
+
+<span class="c1"># 4. Memulai dan Menghentikan MySQL</span>
+   <span class="c1"># Untuk Windows:</span>
+   net start mysql
+   net stop mysql
+
+   <span class="c1"># Untuk Linux/macOS:</span>
+   sudo systemctl start mysql
+   sudo systemctl stop mysql
+   sudo systemctl restart mysql
+
+<span class="c1"># 5. Memeriksa Status MySQL</span>
+sudo systemctl status mysql
+</code></pre></div>
 <p><br></p>
 <h2 id="15-tools-dan-interface">1.5. Tools dan Interface</h2>
-<p><strong>MySQL Command Line Interface (CLI)</strong></p>
-<p>MySQL CLI adalah alat baris perintah yang digunakan untuk berinteraksi dengan MySQL Server. Ini adalah alat utama untuk administrasi database, memungkinkan Anda untuk menjalankan perintah SQL, mengelola database, dan mengelola pengguna. Berikut adalah contoh penggunaan MySQL CLI.</p>
-<div class="highlight"><pre><span></span><code>mysql -u root -p
-
-SHOW DATABASES<span class="p">;</span>
-CREATE DATABASE test_db<span class="p">;</span>
-USE test_db<span class="p">;</span>
-SHOW TABLES<span class="p">;</span>
-</code></pre></div>
-<p><strong>MySQL Workbench</strong></p>
-<p>MySQL Workbench adalah alat GUI (Graphical User Interface) yang menyediakan fitur visual untuk merancang, mengelola, dan memodelkan database. Ini adalah alat yang sangat berguna untuk administrasi database, terutama bagi pengguna yang lebih nyaman dengan antarmuka grafis daripada baris perintah.</p>
-<p><strong>PhpMyAdmin</strong></p>
-<p>PhpMyAdmin adalah alat berbasis web untuk mengelola MySQL database. Ini sering digunakan oleh pengembang web karena terintegrasi dengan baik dengan server web Apache dan mudah diakses dari browser.</p>
-<p><strong>Perbedaan dan Penggunaan CLI vs GUI Tools</strong></p>
+<p>Untuk mengelola dan berinteraksi dengan MySQL, ada beberapa tools dan interface yang bisa digunakan, baik berbasis GUI (Graphical User Interface) maupun CLI (Command Line Interface). Berikut ini adalah beberapa tools populer yang sering digunakan.</p>
 <ul>
-<li><strong>CLI</strong>: Lebih cepat dan lebih ringan, ideal untuk tugas-tugas administrasi rutin dan skrip otomatisasi.</li>
-<li><strong>GUI Tools</strong>: Lebih ramah pengguna dan ideal untuk pemodelan database, perancangan query kompleks, dan visualisasi data.</li>
+<li><strong>MySQL Command Line Client (CLI)</strong>: Antarmuka berbasis teks bawaan yang memungkinkan pengguna menjalankan perintah SQL langsung di terminal atau command prompt.</li>
+<li><strong>MySQL Workbench</strong>: Alat GUI resmi dari Oracle yang menyediakan fitur untuk administrasi server, desain database, dan eksekusi query SQL.</li>
+<li><strong>phpMyAdmin</strong>: Aplikasi berbasis web yang populer untuk mengelola MySQL melalui antarmuka web yang user-friendly dan mudah diakses.</li>
+<li><strong>HeidiSQL</strong>: Alat manajemen MySQL yang ringan dan gratis untuk Windows, menawarkan fitur sederhana namun kuat untuk administrasi database dan data.</li>
+<li><strong>DBeaver</strong>: Alat manajemen database multi-platform yang mendukung berbagai database termasuk MySQL, dengan fitur SQL editor dan administrasi server.</li>
 </ul>
               
             </div>
@@ -237,5 +267,5 @@ SHOW TABLES<span class="p">;</span>
 
 <!--
 MkDocs version : 1.6.0
-Build Date UTC : 2024-08-30 14:31:21.612672+00:00
+Build Date UTC : 2024-08-31 04:25:28.509140+00:00
 -->
